@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us">
+<head>
+  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+  
+
+  <title> 【IPFS &#43; 区块链 系列】 入门篇 - IPFS&#43;IPNS&#43;个人博客搭建  &middot; 区块链部落 </title>
+
+  
+  <link rel="stylesheet" href="https://ipfs.io/ipns/QmdKXkeEWcuRw9oqBwopKUa8CgK1iBktPGYaMoJ4UNt1MP/css/poole.css">
+  <link rel="stylesheet" href="https://ipfs.io/ipns/QmdKXkeEWcuRw9oqBwopKUa8CgK1iBktPGYaMoJ4UNt1MP/css/syntax.css">
+  <link rel="stylesheet" href="https://ipfs.io/ipns/QmdKXkeEWcuRw9oqBwopKUa8CgK1iBktPGYaMoJ4UNt1MP/css/hyde.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="theme-color" content="#ffffff">
+
+  
+  <link href="" rel="alternate" type="application/rss+xml" title="区块链部落" />
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+  <link href='https://fonts.googleapis.com/css?family=Fira+Sans:400,300' rel='stylesheet' type='text/css'>
+
+  <script src="//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script>
+  <script>
+    WebFont.load({
+      google: {
+        families: ['Fira Sans']
+      }
+    });
+  </script>
+
+</head>
+
+<body>
+
+  <div class="sidebar">
+  <div class="container sidebar-sticky">
+    <div class="sidebar-about" align=center>
+      <img src="http://om1c35wrq.bkt.clouddn.com/qrcode_for_gh.jpg" width=50% />
+      <h1 class="brand" style="font-size:40px"><a href="https://ipfs.io/ipns/QmdKXkeEWcuRw9oqBwopKUa8CgK1iBktPGYaMoJ4UNt1MP">区块链部落</a></h1>
+      <p class="lead" style="font-size:18px">
+         20年后我们就会像讨论今天的互联网一样讨论区块链。-- Marc Andressen（Web 浏览器拾荒者) 
+      </p>
+      <ul align=left>
+        <li>QQ群：348924182</li>
+        <li>微信：liyc1215</li>
+        <li><a href="http://www.kongyixueyuan.com">视频</a></li>
+        <li><a href="http://liyuechun.org">博客</a></li>
+      </ul>
+    </div>
+    <ul class="sidebar-nav">
+      <li><a href="https://ipfs.io/ipns/QmdKXkeEWcuRw9oqBwopKUa8CgK1iBktPGYaMoJ4UNt1MP/blog">IPFS部署博客系列文章</a></li>
+    </ul>
+    
+    
+    <a href="https://www.facebook.com/profile.php?id=100012432244509"><i class="fa fa-facebook-square"></i></a>&nbsp;&nbsp;
+     <a href="https://github.com/liyuechun"><i class="fa fa-github-square"></i></a>&nbsp;&nbsp;
+    
+    <a href="https://plus.google.com/u/0/115982503767784009962"><i class="fa fa-google-plus"></i></a>
+
+    <p class="footnote"><br/> &copy; 2017 liyuechun. All rights reserved.</p>
+
+  </div>
+</div>
+
+
+  <div class="content container">
+    <div class="post">
+    <h1 class="post-title">【IPFS &#43; 区块链 系列】 入门篇 - IPFS&#43;IPNS&#43;个人博客搭建</h1>
+    <span class="post-date">Oct 30, 2017</span>
+    
+    
+
+<blockquote>
+<p>孔壹学院：国内区块链职业教育引领品牌。</p>
+
+<p>作者：黎跃春，孔壹学院创始人，区块链、高可用架构师</p>
+
+<p>微信：liyc1215</p>
+
+<p>区块链博客：<a href="http://liyuechun.org">http://liyuechun.org</a></p>
+</blockquote>
+
+<p>在阅读这篇文章之前，你需要先学习<a href="http://liyuechun.org/2017/11/20/ipfs-blockchain/">【IPFS + 区块链 系列】 入门篇 - IPFS环境配置</a>这篇文章。</p>
+
+<h2 id="目录">目录</h2>
+
+<ul>
+<li><a href="#1-如何在IPFS新增一个文件">1. 如何在IPFS新增一个文件</a>
+
+<ul>
+<li><a href="#11-新建file.txt文件">1.1 新建file.txt文件</a></li>
+<li><a href="#12-查看ipfs相关命令">1.2 查看ipfs相关命令</a></li>
+<li><a href="#13-将file.txt添加到ipfs节点">1.3 将file.txt添加到ipfs节点</a></li>
+</ul></li>
+<li><a href="#2-通过ipfs创建目录存储文件">2. 通过ipfs创建目录存储文件</a></li>
+<li><a href="#3-如何在IPFS新增一个目录">3. 如何在IPFS新增一个目录</a>
+
+<ul>
+<li><a href="#31-使用ipfs add -r可以上传一整个目录">3.1 使用ipfs add -r可以上传一整个目录</a></li>
+<li><a href="#32-通过路径访问contactme.txt文件数据">3.2 通过路径访问contactme.txt文件数据</a></li>
+<li><a href="#33-通过Hash查看数据IPFS网络数据">3.3 通过Hash查看数据IPFS网络数据</a></li>
+</ul></li>
+<li><a href="#4-创建简易的网页发布到IPFS">4. 创建简易的网页发布到IPFS</a>
+
+<ul>
+<li><a href="#41-创建一个index.html文件">4.1 创建一个index.html文件</a></li>
+<li><a href="#42-创建一个style.css文件">4.2 创建一个style.css文件</a></li>
+<li><a href="#43-添加到ipfs">4.3 添加到ipfs</a></li>
+<li><a href="#44-网络同步">4.4 网络同步</a></li>
+<li><a href="#45-访问网站">4.5 访问网站</a></li>
+<li><a href="#46-发布到IPNS">4.6 发布到IPNS</a></li>
+</ul></li>
+<li><a href="#5-发布个人博客">5. 发布个人博客</a>
+
+<ul>
+<li><a href="#51-搭建静态博客">5.1 搭建静态博客</a></li>
+<li><a href="#52-节点ID替换">5.2 节点ID替换</a></li>
+<li><a href="#53-浏览博客">5.3 浏览博客</a></li>
+</ul></li>
+<li><a href="#6-下篇预报">6. 下篇预报</a>
+
+<ul>
+<li><a href="#61-`ipfs + ethereum``Dapp`开发入门">6.1 <code>ipfs + ethereum</code><code>Dapp</code>开发入门</a></li>
+</ul></li>
+</ul>
+
+<h2 id="1-如何在ipfs新增一个文件">1. 如何在IPFS新增一个文件</h2>
+
+<h3 id="1-1-新建file-txt文件">1.1 新建file.txt文件</h3>
+
+<p>打开终端，切换到桌面，新建一个文件夹<code>1121</code>，切换到<code>1121</code>中，通过<code>vi</code>新建一个文件<code>file.txt</code>，文件里面输入春哥微信号<code>liyc1215</code>保存并且退出。</p>
+
+<pre><code>localhost:Desktop yuechunli$ pwd
+/Users/liyuechun/Desktop
+localhost:Desktop yuechunli$ mkdir 1121
+localhost:Desktop yuechunli$ cd 1121/
+localhost:1121 yuechunli$ vi file.txt
+localhost:1121 yuechunli$ cat file.txt
+liyc1215
+localhost:1121 yuechunli$
+</code></pre>
+
+<h3 id="1-2-查看ipfs相关命令">1.2 查看ipfs相关命令</h3>
+
+<pre><code>localhost:1121 yuechunli$ ipfs help
+USAGE
+  ipfs - Global p2p merkle-dag filesystem.
+
+  ipfs [--config=&lt;config&gt; | -c] [--debug=&lt;debug&gt; | -D] [--help=&lt;help&gt;] [-h=&lt;h&gt;] [--local=&lt;local&gt; | -L] [--api=&lt;api&gt;] &lt;command&gt; ...
+
+SUBCOMMANDS
+  BASIC COMMANDS
+    init          Initialize ipfs local configuration
+    add &lt;path&gt;    Add a file to IPFS
+    cat &lt;ref&gt;     Show IPFS object data
+    get &lt;ref&gt;     Download IPFS objects
+    ls &lt;ref&gt;      List links from an object
+    refs &lt;ref&gt;    List hashes of links from an object
+
+  DATA STRUCTURE COMMANDS
+    block         Interact with raw blocks in the datastore
+    object        Interact with raw dag nodes
+    files         Interact with objects as if they were a unix filesystem
+    dag           Interact with IPLD documents (experimental)
+
+  ADVANCED COMMANDS
+    daemon        Start a long-running daemon process
+    mount         Mount an IPFS read-only mountpoint
+    resolve       Resolve any type of name
+    name          Publish and resolve IPNS names
+    key           Create and list IPNS name keypairs
+    dns           Resolve DNS links
+    pin           Pin objects to local storage
+    repo          Manipulate the IPFS repository
+    stats         Various operational stats
+    p2p           Libp2p stream mounting
+    filestore     Manage the filestore (experimental)
+
+  NETWORK COMMANDS
+    id            Show info about IPFS peers
+    bootstrap     Add or remove bootstrap peers
+    swarm         Manage connections to the p2p network
+    dht           Query the DHT for values or peers
+    ping          Measure the latency of a connection
+    diag          Print diagnostics
+
+  TOOL COMMANDS
+    config        Manage configuration
+    version       Show ipfs version information
+    update        Download and apply go-ipfs updates
+    commands      List all available commands
+</code></pre>
+
+<h3 id="1-3-将file-txt添加到ipfs节点">1.3 将file.txt添加到ipfs节点</h3>
+
+<pre><code>localhost:1121 yuechunli$ ls
+file.txt
+localhost:1121 yuechunli$ ipfs add file.txt
+added QmbrevseVQKf1vsYMsxCscRf6D7S2dftYpHwxkYf94pc7T file.txt
+localhost:1121 yuechunli$ cat file.txt
+liyc1215
+localhost:1121 yuechunli$ ipfs cat QmbrevseVQKf1vsYMsxCscRf6D7S2dftYpHwxkYf94pc7T
+liyc1215
+localhost:1121 yuechunli$
+</code></pre>
+
+<p>当执行完<code>ipfs add file.txt</code>这个命令以后，会将<code>file.txt</code>添加到<code>ipfs</code>当前的节点中，并且会对<code>file.txt</code>文件生成一个唯一的<code>hash</code><code>QmbrevseVQKf1vsYMsxCscRf6D7S2dftYpHwxkYf94pc7T</code>，如果想查看本地<code>ipfs</code>节点的数据，可以通过<code>ipfs cat QmbrevseVQKf1vsYMsxCscRf6D7S2dftYpHwxkYf94pc7T</code>进行查看。</p>
+
+<p><strong>⚠️：</strong>当我试图通过<code>http://ipfs.io/ipfs/QmbrevseVQKf1vsYMsxCscRf6D7S2dftYpHwxkYf94pc7T</code>进行数据访问时，无法访问，如下图所示：</p>
+
+<p><img src="http://om1c35wrq.bkt.clouddn.com/fangwen.gif" alt="" /></p>
+
+<p><strong>⚠️：</strong>虽然数据已经添加到当前的你自己的<code>IPFS</code>节点中，但是并没有同步到<code>IPFS</code>网络，所以暂时在网络上无法访问。</p>
+
+<p><strong>⚠️：重要：接下来执行下面的命令同步节点数据到<code>IPFS</code>网络，再试图在网络上查看数据。</strong></p>
+
+<ul>
+<li>同步节点</li>
+</ul>
+
+<p>新建一个终端，执行<code>ipfs daemon</code>。</p>
+
+<pre><code>localhost:.ipfs yuechunli$ ipfs daemon
+Initializing daemon...
+Adjusting current ulimit to 2048...
+Successfully raised file descriptor limit to 2048.
+Swarm listening on /ip4/111.196.246.151/tcp/3637
+Swarm listening on /ip4/127.0.0.1/tcp/4001
+Swarm listening on /ip4/169.254.170.167/tcp/4001
+Swarm listening on /ip4/192.168.0.107/tcp/4001
+Swarm listening on /ip6/::1/tcp/4001
+API server listening on /ip4/127.0.0.1/tcp/5001
+Gateway (readonly) server listening on /ip4/127.0.0.1/tcp/8080
+Daemon is ready
+</code></pre>
+
+<ul>
+<li>从<code>IPFS</code>网络查看数据</li>
+</ul>
+
+<p>浏览器访问<a href="https://ipfs.io/ipfs/QmbrevseVQKf1vsYMsxCscRf6D7S2dftYpHwxkYf94pc7T">https://ipfs.io/ipfs/QmbrevseVQKf1vsYMsxCscRf6D7S2dftYpHwxkYf94pc7T</a></p>
+
+<p><img src="http://om1c35wrq.bkt.clouddn.com/WX20171121-105531@2x.png" alt="黎跃春 微信" /></p>
+
+<h2 id="2-通过ipfs创建目录存储文件">2. 通过ipfs创建目录存储文件</h2>
+
+<p>在着上面的步骤走，我们可以通过<code>ipfs cat QmbrevseVQKf1vsYMsxCscRf6D7S2dftYpHwxkYf94pc7T
+liyc1215</code>查看添加到<code>ipfs</code>网络的<code>file.txt</code>文件的内容，如下：</p>
+
+<pre><code>localhost:1121 yuechunli$ ipfs cat QmbrevseVQKf1vsYMsxCscRf6D7S2dftYpHwxkYf94pc7T
+liyc1215
+localhost:1121 yuechunli$
+</code></pre>
+
+<p>当然，我们也可以通过<code>ipfs</code>的相关命令在<code>ipfs</code>的根目录下面创建文件夹，并且将<code>file.txt</code>文件<strong>移动</strong>或者<strong>拷贝</strong>到我们创建的文件夹中。</p>
+
+<p><strong>⚠️：cp不会改变文件hash，mv会改变hash寻址。</strong></p>
+
+<pre><code>localhost:1121 yuechunli$ ipfs cat QmbrevseVQKf1vsYMsxCscRf6D7S2dftYpHwxkYf94pc7T
+liyc1215
+localhost:1121 yuechunli$ ipfs files mkdir /LiYueChun
+localhost:1121 yuechunli$ ipfs files cp /ipfs/QmbrevseVQKf1vsYMsxCscRf6D7S2dftYpHwxkYf94pc7T /LiYueChun/file.txt
+localhost:1121 yuechunli$ ipfs files ls /
+LiYueChun
+localhost:1121 yuechunli$ ipfs files ls /LiYueChun/
+file.txt
+localhost:1121 yuechunli$ ipfs files read /LiYueChun/file.txt
+liyc1215
+localhost:1121 yuechunli$
+</code></pre>
+
+<h2 id="3-如何在ipfs新增一个目录">3. 如何在IPFS新增一个目录</h2>
+
+<h3 id="3-1-使用ipfs-add-r可以上传一整个目录">3.1 使用ipfs add -r可以上传一整个目录</h3>
+
+<pre><code>localhost:1121 yuechunli$ ipfs add -r ipfs-tutorial/
+added QmYx4BnhnLXeMWF5mKu16fJgUBiVP7ECXh7qcsUZnXiRxc ipfs-tutorial/contactme.txt
+added QmfKdWsguobA3aDPvSxLB3Bq4HMKyqKSgFr2NFUuVH8n31 ipfs-tutorial/eth-fabric.png
+added QmXe8jTxTh5MZP6BK5cnj19mXNTKVMzNyUJZUHuYyr5dk1 ipfs-tutorial/gongzhonghao.png
+added QmSsjQDVw1fvmG5RsZMgp2GjihiXn2zDv64mfHZN3AREek ipfs-tutorial
+</code></pre>
+
+<h4 id="3-2-通过路径访问contactme-txt文件数据">3.2 通过路径访问contactme.txt文件数据</h4>
+
+<p>如果我们上传的是目录，那么可以通过下面几种方式访问到<code>contactme.txt</code>文件的数据。</p>
+
+<pre><code>localhost:1121 yuechunli$ ipfs cat QmYx4BnhnLXeMWF5mKu16fJgUBiVP7ECXh7qcsUZnXiRxc
+微信：liyc1215
+区块链技术交流群：348924182
+公众号：区块链部落
+localhost:1121 yuechunli$ ipfs cat /ipfs/QmYx4BnhnLXeMWF5mKu16fJgUBiVP7ECXh7qcsUZnXiRxc
+微信：liyc1215
+区块链技术交流群：348924182
+公众号：区块链部落
+localhost:1121 yuechunli$ ipfs cat /ipfs/QmSsjQDVw1fvmG5RsZMgp2GjihiXn2zDv64mfHZN3AREek/contactme.txt
+微信：liyc1215
+区块链技术交流群：348924182
+公众号：区块链部落
+localhost:1121 yuechunli$
+</code></pre>
+
+<h3 id="3-3-通过hash查看数据ipfs网络数据">3.3 通过Hash查看数据IPFS网络数据</h3>
+
+<ul>
+<li><strong>访问目录：</strong><a href="https://ipfs.io/ipfs/QmSsjQDVw1fvmG5RsZMgp2GjihiXn2zDv64mfHZN3AREek">https://ipfs.io/ipfs/QmSsjQDVw1fvmG5RsZMgp2GjihiXn2zDv64mfHZN3AREek</a></li>
+</ul>
+
+<p><img src="http://om1c35wrq.bkt.clouddn.com/WX20171121-110959@2x.png" alt="" /></p>
+
+<ul>
+<li><p><strong>通过目录访问文件：</strong><a href="https://ipfs.io/ipfs/QmSsjQDVw1fvmG5RsZMgp2GjihiXn2zDv64mfHZN3AREek/contactme.txt">https://ipfs.io/ipfs/QmSsjQDVw1fvmG5RsZMgp2GjihiXn2zDv64mfHZN3AREek/contactme.txt</a>
+<img src="http://om1c35wrq.bkt.clouddn.com/WX20171121-111019@2x.png" alt="" /></p></li>
+
+<li><p><strong>通过文件hash直接访问：</strong><a href="https://ipfs.io/ipfs/QmYx4BnhnLXeMWF5mKu16fJgUBiVP7ECXh7qcsUZnXiRxc">https://ipfs.io/ipfs/QmYx4BnhnLXeMWF5mKu16fJgUBiVP7ECXh7qcsUZnXiRxc</a></p></li>
+</ul>
+
+<p><img src="http://om1c35wrq.bkt.clouddn.com/WX20171121-113047@2x.png" alt="" /></p>
+
+<h2 id="4-创建简易的网页发布到ipfs">4. 创建简易的网页发布到IPFS</h2>
+
+<p>在这里我先自己写一个简单的网页给大家演示，先在桌面新建一个<code>site</code>文件夹，然后按照下面的步骤在<code>site</code>文件夹中建立<code>index.html</code>和<code>style.css</code>文件。</p>
+
+<h3 id="4-1-创建一个index-html文件">4.1 创建一个index.html文件</h3>
+
+<pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;title&gt;Hello IPFS!&lt;/title&gt;
+  &lt;link rel=&quot;stylesheet&quot; href=&quot;./style.css&quot; /&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;Hello IPFS!&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+
+<h3 id="4-2-创建一个style-css文件">4.2 创建一个style.css文件</h3>
+
+<pre><code>h1 {
+  color: green;
+}
+</code></pre>
+
+<h3 id="4-3-添加到ipfs">4.3 添加到ipfs</h3>
+
+<pre><code>localhost:Desktop yuechunli$ ipfs add -r site/
+added QmWG5rbgT9H77TGq49RXNoqN8M7DNKMnMX425nkmCB6BjS site/index.html
+added QmfGLJ3mryLvicQqzdsghq4QRhptKJtBAPe7yDJxsBGSuy site/style.css
+added QmdVEGkT5u7LtzzatTrn8JGNEF3fpuMPVs2rPCfvqRykRp site
+</code></pre>
+
+<p>最后一行是项目根目录的<code>hash</code>，你先通过<code>ipfs daemon</code>同步网络，然后可以通过<code>https://ipfs.io/ipfs/&lt;你的项目根目录hash&gt;</code>，即<code>https://ipfs.io/ipfs/QmdVEGkT5u7LtzzatTrn8JGNEF3fpuMPVs2rPCfvqRykRp</code>访问项目。</p>
+
+<h3 id="4-4-网络同步">4.4 网络同步</h3>
+
+<pre><code>localhost:Desktop yuechunli$ ipfs daemon
+</code></pre>
+
+<h3 id="4-5-访问网站">4.5 访问网站</h3>
+
+<p>浏览器打开<a href="https://ipfs.io/ipfs/QmdVEGkT5u7LtzzatTrn8JGNEF3fpuMPVs2rPCfvqRykRp">https://ipfs.io/ipfs/QmdVEGkT5u7LtzzatTrn8JGNEF3fpuMPVs2rPCfvqRykRp</a>，效果图如下：</p>
+
+<p><img src="http://om1c35wrq.bkt.clouddn.com/WX20171121-210721@2x.png" alt="" /></p>
+
+<h3 id="4-6-发布到ipns">4.6 发布到IPNS</h3>
+
+<p>当我们修改网站内容重新添加到<code>ipfs</code>时，<code>hash</code>会发生变化，当我们网站更新时，我们可以将网站发布到IPNS，在IPNS中，允许我们节点的域名空间中引用一个<code>IPFS hash</code>，也就是说我们可以通过节点<code>ID</code>对项目根目录的<code>IPFS HASH</code>进行绑定，以后我们访问网站时直接通过节点·ID<code>访问即可，当我们更新博客时，重新发布到</code>IPNS`即可。</p>
+
+<pre><code>localhost:~ yuechunli$ ipfs name publish QmdVEGkT5u7LtzzatTrn8JGNEF3fpuMPVs2rPCfvqRykRp
+Published to QmdKXkeEWcuRw9oqBwopKUa8CgK1iBktPGYaMoJ4UNt1MP: /ipfs/QmdVEGkT5u7LtzzatTrn8JGNEF3fpuMPVs2rPCfvqRykRp
+localhost:~ yuechunli$ ipfs id
+{
+	&quot;ID&quot;: &quot;QmdKXkeEWcuRw9oqBwopKUa8CgK1iBktPGYaMoJ4UNt1MP&quot;
+}
+</code></pre>
+
+<p>当我们执行<code>ipfs name publish</code>命令时，会返回我们的节点<code>ID</code>，你可以通过<code>ipfs id</code>进行查看验证是否是你的节点<code>ID</code>。</p>
+
+<p><strong>⚠️：验证</strong></p>
+
+<pre><code>$ ipfs name resolve &lt;peerId&gt;
+</code></pre>
+
+<pre><code>localhost:~ yuechunli$ ipfs name resolve QmdKXkeEWcuRw9oqBwopKUa8CgK1iBktPGYaMoJ4UNt1MP
+/ipfs/QmdVEGkT5u7LtzzatTrn8JGNEF3fpuMPVs2rPCfvqRykRp
+localhost:~ yuechunli$
+</code></pre>
+
+<p><strong>⚠️：</strong>当然我们现在就可以通过<code>IPNS</code>进行访问了。</p>
+
+<pre><code>https://ipfs.io/ipns/QmdKXkeEWcuRw9oqBwopKUa8CgK1iBktPGYaMoJ4UNt1MP
+</code></pre>
+
+<p><strong>⚠️⚠️⚠️：注意上面是ipns而不是ipfs。</strong></p>
+
+<p><img src="http://om1c35wrq.bkt.clouddn.com/WX20171121-212123@2x.png" alt="" /></p>
+
+<p><strong>⚠️：如果你网站数据修改，需要重新发布到IPNS。</strong></p>
+
+<h2 id="5-发布个人博客">5. 发布个人博客</h2>
+
+<p>你可以通过<code>Hugo</code>按照官方文档创建一个漂亮的静态博客<a href="http://gohugo.io/getting-started/quick-start/">Hugo官方网站</a>，当然你也可以自己编写，或者使用其他开源项目搭建。</p>
+
+<h3 id="5-1-搭建静态博客">5.1 搭建静态博客</h3>
+
+<p>大家可以自己搭建，也可以直接下载我的博客源码直接搭建。</p>
+
+<p>源码地址：<a href="http://github.com/liyuechun/ipfs_blogger">http://github.com/liyuechun/ipfs_blogger</a></p>
+
+<h3 id="5-2-节点id替换">5.2 节点ID替换</h3>
+
+<ul>
+<li>查看你的节点ID</li>
+</ul>
+
+<pre><code>localhost:ipfs_pin yuechunli$ ipfs id
+{
+	&quot;ID&quot;: &quot;《your peer id》&quot;
+}
+localhost:ipfs_pin yuechunli$
+</code></pre>
+
+<p>在上面的源码中全局搜索将源码里面的<code>QmdKXkeEWcuRw9oqBwopKUa8CgK1iBktPGYaMoJ4UNt1MP</code>替换成你自己的<code>ID</code>。</p>
+
+<p>接下来重复<a href="#4-创建简易的网页发布到IPFS">4. 创建简易的网页发布到IPFS</a>的操作步骤即可。</p>
+
+<h3 id="5-3-浏览博客">5.3 浏览博客</h3>
+
+<p>浏览器打开<a href="https://ipfs.io/ipns/QmdKXkeEWcuRw9oqBwopKUa8CgK1iBktPGYaMoJ4UNt1MP/">https://ipfs.io/ipns/QmdKXkeEWcuRw9oqBwopKUa8CgK1iBktPGYaMoJ4UNt1MP/</a>查看项目效果。</p>
+
+<p><img src="http://om1c35wrq.bkt.clouddn.com/WX20171121-215636@2x.png" alt="IPFS 博客项目效果图" /></p>
+
+<h2 id="6-下篇预报">6. 下篇预报</h2>
+
+<h3 id="6-1-ipfs-ethereum-dapp-开发入门">6.1 <code>ipfs + ethereum</code><code>Dapp</code>开发入门</h3>
+
+<h2 id="7-技术交流">7. 技术交流</h2>
+
+<ul>
+<li>区块链技术交流QQ群：<code>348924182</code></li>
+<li>进微信群请加微信：<code>liyc1215</code></li>
+<li>「区块链部落」官方公众号</li>
+</ul>
+
+<p><img src="http://om1c35wrq.bkt.clouddn.com/%E5%8C%BA%E5%9D%97%E9%93%BE%E9%83%A8%E8%90%BD.png" alt="" /></p>
+
+    
+
+     
+	
+    <div id="disqus_thread"></div>
+<script type="text/javascript">
+
+(function() {
+    
+    
+    if (window.location.hostname == "localhost") 
+        return;
+
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    var disqus_shortname = '';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the comments powered by <a href="http://disqus.com/?ref_noscript">Disqus.</a></noscript>
+</div>
+</div> 
+
+</body>w
+</html>

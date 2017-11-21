@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+      <title>区块链部落</title>
+      <generator uri="https://gohugo.io">Hugo</generator>
+    <link>https://ipfs.io/ipns/QmdKXkeEWcuRw9oqBwopKUa8CgK1iBktPGYaMoJ4UNt1MP/blog/</link>
+    <language>en-us</language>
+    <author>黎跃春</author>
+    <copyright>2017 liyuechun</copyright>
+    <updated>Mon, 30 Oct 2017 20:01:00 UTC</updated>
+    
+    
+    <item>
+      <title>【IPFS &#43; 区块链 系列】 入门篇 - IPFS&#43;IPNS&#43;个人博客搭建</title>
+      <link>https://ipfs.io/ipns/QmdKXkeEWcuRw9oqBwopKUa8CgK1iBktPGYaMoJ4UNt1MP/2017/10/ipfs_first_post/</link>
+      <pubDate>Mon, 30 Oct 2017 20:01:00 UTC</pubDate>
+      <author>黎跃春</author>
+      <guid>https://ipfs.io/ipns/QmdKXkeEWcuRw9oqBwopKUa8CgK1iBktPGYaMoJ4UNt1MP/2017/10/ipfs_first_post/</guid>
+      <description>
+
+&lt;blockquote&gt;
+&lt;p&gt;孔壹学院：国内区块链职业教育引领品牌。&lt;/p&gt;
+
+&lt;p&gt;作者：黎跃春，孔壹学院创始人，区块链、高可用架构师&lt;/p&gt;
+
+&lt;p&gt;微信：liyc1215&lt;/p&gt;
+
+&lt;p&gt;区块链博客：&lt;a href=&#34;http://liyuechun.org&#34;&gt;http://liyuechun.org&lt;/a&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;在阅读这篇文章之前，你需要先学习&lt;a href=&#34;http://liyuechun.org/2017/11/20/ipfs-blockchain/&#34;&gt;【IPFS + 区块链 系列】 入门篇 - IPFS环境配置&lt;/a&gt;这篇文章。&lt;/p&gt;
+
+&lt;h2 id=&#34;目录&#34;&gt;目录&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#1-如何在IPFS新增一个文件&#34;&gt;1. 如何在IPFS新增一个文件&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#11-新建file.txt文件&#34;&gt;1.1 新建file.txt文件&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#12-查看ipfs相关命令&#34;&gt;1.2 查看ipfs相关命令&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#13-将file.txt添加到ipfs节点&#34;&gt;1.3 将file.txt添加到ipfs节点&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#2-通过ipfs创建目录存储文件&#34;&gt;2. 通过ipfs创建目录存储文件&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#3-如何在IPFS新增一个目录&#34;&gt;3. 如何在IPFS新增一个目录&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#31-使用ipfs add -r可以上传一整个目录&#34;&gt;3.1 使用ipfs add -r可以上传一整个目录&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#32-通过路径访问contactme.txt文件数据&#34;&gt;3.2 通过路径访问contactme.txt文件数据&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#33-通过Hash查看数据IPFS网络数据&#34;&gt;3.3 通过Hash查看数据IPFS网络数据&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#4-创建简易的网页发布到IPFS&#34;&gt;4. 创建简易的网页发布到IPFS&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#41-创建一个index.html文件&#34;&gt;4.1 创建一个index.html文件&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#42-创建一个style.css文件&#34;&gt;4.2 创建一个style.css文件&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#43-添加到ipfs&#34;&gt;4.3 添加到ipfs&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#44-网络同步&#34;&gt;4.4 网络同步&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#45-访问网站&#34;&gt;4.5 访问网站&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#46-发布到IPNS&#34;&gt;4.6 发布到IPNS&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#5-发布个人博客&#34;&gt;5. 发布个人博客&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#51-搭建静态博客&#34;&gt;5.1 搭建静态博客&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#52-节点ID替换&#34;&gt;5.2 节点ID替换&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#53-浏览博客&#34;&gt;5.3 浏览博客&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;#6-下篇预报&#34;&gt;6. 下篇预报&lt;/a&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;#61-`ipfs + ethereum``Dapp`开发入门&#34;&gt;6.1 &lt;code&gt;ipfs + ethereum&lt;/code&gt;&lt;code&gt;Dapp&lt;/code&gt;开发入门&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;1-如何在ipfs新增一个文件&#34;&gt;1. 如何在IPFS新增一个文件&lt;/h2&gt;
+
+&lt;h3 id=&#34;1-1-新建file-txt文件&#34;&gt;1.1 新建file.txt文件&lt;/h3&gt;
+
+&lt;p&gt;打开终端，切换到桌面，新建一个文件夹&lt;code&gt;1121&lt;/code&gt;，切换到&lt;code&gt;1121&lt;/code&gt;中，通过&lt;code&gt;vi&lt;/code&gt;新建一个文件&lt;code&gt;file.txt&lt;/code&gt;，文件里面输入春哥微信号&lt;code&gt;liyc1215&lt;/code&gt;保存并且退出。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;localhost:Desktop yuechunli$ pwd
+/Users/liyuechun/Desktop
+localhost:Desktop yuechunli$ mkdir 1121
+localhost:Desktop yuechunli$ cd 1121/
+localhost:1121 yuechunli$ vi file.txt
+localhost:1121 yuechunli$ cat file.txt
+liyc1215
+localhost:1121 yuechunli$
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;1-2-查看ipfs相关命令&#34;&gt;1.2 查看ipfs相关命令&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;localhost:1121 yuechunli$ ipfs help
+USAGE
+  ipfs - Global p2p merkle-dag filesystem.
+
+  ipfs [--config=&amp;lt;config&amp;gt; | -c] [--debug=&amp;lt;debug&amp;gt; | -D] [--help=&amp;lt;help&amp;gt;] [-h=&amp;lt;h&amp;gt;] [--local=&amp;lt;local&amp;gt; | -L] [--api=&amp;lt;api&amp;gt;] &amp;lt;command&amp;gt; ...
+
+SUBCOMMANDS
+  BASIC COMMANDS
+    init          Initialize ipfs local configuration
+    add &amp;lt;path&amp;gt;    Add a file to IPFS
+    cat &amp;lt;ref&amp;gt;     Show IPFS object data
+    get &amp;lt;ref&amp;gt;     Download IPFS objects
+    ls &amp;lt;ref&amp;gt;      List links from an object
+    refs &amp;lt;ref&amp;gt;    List hashes of links from an object
+
+  DATA STRUCTURE COMMANDS
+    block         Interact with raw blocks in the datastore
+    object        Interact with raw dag nodes
+    files         Interact with objects as if they were a unix filesystem
+    dag           Interact with IPLD documents (experimental)
+
+  ADVANCED COMMANDS
+    daemon        Start a long-running daemon process
+    mount         Mount an IPFS read-only mountpoint
+    resolve       Resolve any type of name
+    name          Publish and resolve IPNS names
+    key           Create and list IPNS name keypairs
+    dns           Resolve DNS links
+    pin           Pin objects to local storage
+    repo          Manipulate the IPFS repository
+    stats         Various operational stats
+    p2p           Libp2p stream mounting
+    filestore     Manage the filestore (experimental)
+
+  NETWORK COMMANDS
+    id            Show info about IPFS peers
+    bootstrap     Add or remove bootstrap peers
+    swarm         Manage connections to the p2p network
+    dht           Query the DHT for values or peers
+    ping          Measure the latency of a connection
+    diag          Print diagnostics
+
+  TOOL COMMANDS
+    config        Manage configuration
+    version       Show ipfs version information
+    update        Download and apply go-ipfs updates
+    commands      List all available commands
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;1-3-将file-txt添加到ipfs节点&#34;&gt;1.3 将file.txt添加到ipfs节点&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;localhost:1121 yuechunli$ ls
+file.txt
+localhost:1121 yuechunli$ ipfs add file.txt
+added QmbrevseVQKf1vsYMsxCscRf6D7S2dftYpHwxkYf94pc7T file.txt
+localhost:1121 yuechunli$ cat file.txt
+liyc1215
+localhost:1121 yuechunli$ ipfs cat QmbrevseVQKf1vsYMsxCscRf6D7S2dftYpHwxkYf94pc7T
+liyc1215
+localhost:1121 yuechunli$
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;当执行完&lt;code&gt;ipfs add file.txt&lt;/code&gt;这个命令以后，会将&lt;code&gt;file.txt&lt;/code&gt;添加到&lt;code&gt;ipfs&lt;/code&gt;当前的节点中，并且会对&lt;code&gt;file.txt&lt;/code&gt;文件生成一个唯一的&lt;code&gt;hash&lt;/code&gt;&lt;code&gt;QmbrevseVQKf1vsYMsxCscRf6D7S2dftYpHwxkYf94pc7T&lt;/code&gt;，如果想查看本地&lt;code&gt;ipfs&lt;/code&gt;节点的数据，可以通过&lt;code&gt;ipfs cat QmbrevseVQKf1vsYMsxCscRf6D7S2dftYpHwxkYf94pc7T&lt;/code&gt;进行查看。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⚠️：&lt;/strong&gt;当我试图通过&lt;code&gt;http://ipfs.io/ipfs/QmbrevseVQKf1vsYMsxCscRf6D7S2dftYpHwxkYf94pc7T&lt;/code&gt;进行数据访问时，无法访问，如下图所示：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://om1c35wrq.bkt.clouddn.com/fangwen.gif&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⚠️：&lt;/strong&gt;虽然数据已经添加到当前的你自己的&lt;code&gt;IPFS&lt;/code&gt;节点中，但是并没有同步到&lt;code&gt;IPFS&lt;/code&gt;网络，所以暂时在网络上无法访问。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⚠️：重要：接下来执行下面的命令同步节点数据到&lt;code&gt;IPFS&lt;/code&gt;网络，再试图在网络上查看数据。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;同步节点&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;新建一个终端，执行&lt;code&gt;ipfs daemon&lt;/code&gt;。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;localhost:.ipfs yuechunli$ ipfs daemon
+Initializing daemon...
+Adjusting current ulimit to 2048...
+Successfully raised file descriptor limit to 2048.
+Swarm listening on /ip4/111.196.246.151/tcp/3637
+Swarm listening on /ip4/127.0.0.1/tcp/4001
+Swarm listening on /ip4/169.254.170.167/tcp/4001
+Swarm listening on /ip4/192.168.0.107/tcp/4001
+Swarm listening on /ip6/::1/tcp/4001
+API server listening on /ip4/127.0.0.1/tcp/5001
+Gateway (readonly) server listening on /ip4/127.0.0.1/tcp/8080
+Daemon is ready
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;从&lt;code&gt;IPFS&lt;/code&gt;网络查看数据&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;浏览器访问&lt;a href=&#34;https://ipfs.io/ipfs/QmbrevseVQKf1vsYMsxCscRf6D7S2dftYpHwxkYf94pc7T&#34;&gt;https://ipfs.io/ipfs/QmbrevseVQKf1vsYMsxCscRf6D7S2dftYpHwxkYf94pc7T&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://om1c35wrq.bkt.clouddn.com/WX20171121-105531@2x.png&#34; alt=&#34;黎跃春 微信&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;2-通过ipfs创建目录存储文件&#34;&gt;2. 通过ipfs创建目录存储文件&lt;/h2&gt;
+
+&lt;p&gt;在着上面的步骤走，我们可以通过&lt;code&gt;ipfs cat QmbrevseVQKf1vsYMsxCscRf6D7S2dftYpHwxkYf94pc7T
+liyc1215&lt;/code&gt;查看添加到&lt;code&gt;ipfs&lt;/code&gt;网络的&lt;code&gt;file.txt&lt;/code&gt;文件的内容，如下：&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;localhost:1121 yuechunli$ ipfs cat QmbrevseVQKf1vsYMsxCscRf6D7S2dftYpHwxkYf94pc7T
+liyc1215
+localhost:1121 yuechunli$
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;当然，我们也可以通过&lt;code&gt;ipfs&lt;/code&gt;的相关命令在&lt;code&gt;ipfs&lt;/code&gt;的根目录下面创建文件夹，并且将&lt;code&gt;file.txt&lt;/code&gt;文件&lt;strong&gt;移动&lt;/strong&gt;或者&lt;strong&gt;拷贝&lt;/strong&gt;到我们创建的文件夹中。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⚠️：cp不会改变文件hash，mv会改变hash寻址。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;localhost:1121 yuechunli$ ipfs cat QmbrevseVQKf1vsYMsxCscRf6D7S2dftYpHwxkYf94pc7T
+liyc1215
+localhost:1121 yuechunli$ ipfs files mkdir /LiYueChun
+localhost:1121 yuechunli$ ipfs files cp /ipfs/QmbrevseVQKf1vsYMsxCscRf6D7S2dftYpHwxkYf94pc7T /LiYueChun/file.txt
+localhost:1121 yuechunli$ ipfs files ls /
+LiYueChun
+localhost:1121 yuechunli$ ipfs files ls /LiYueChun/
+file.txt
+localhost:1121 yuechunli$ ipfs files read /LiYueChun/file.txt
+liyc1215
+localhost:1121 yuechunli$
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;3-如何在ipfs新增一个目录&#34;&gt;3. 如何在IPFS新增一个目录&lt;/h2&gt;
+
+&lt;h3 id=&#34;3-1-使用ipfs-add-r可以上传一整个目录&#34;&gt;3.1 使用ipfs add -r可以上传一整个目录&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;localhost:1121 yuechunli$ ipfs add -r ipfs-tutorial/
+added QmYx4BnhnLXeMWF5mKu16fJgUBiVP7ECXh7qcsUZnXiRxc ipfs-tutorial/contactme.txt
+added QmfKdWsguobA3aDPvSxLB3Bq4HMKyqKSgFr2NFUuVH8n31 ipfs-tutorial/eth-fabric.png
+added QmXe8jTxTh5MZP6BK5cnj19mXNTKVMzNyUJZUHuYyr5dk1 ipfs-tutorial/gongzhonghao.png
+added QmSsjQDVw1fvmG5RsZMgp2GjihiXn2zDv64mfHZN3AREek ipfs-tutorial
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h4 id=&#34;3-2-通过路径访问contactme-txt文件数据&#34;&gt;3.2 通过路径访问contactme.txt文件数据&lt;/h4&gt;
+
+&lt;p&gt;如果我们上传的是目录，那么可以通过下面几种方式访问到&lt;code&gt;contactme.txt&lt;/code&gt;文件的数据。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;localhost:1121 yuechunli$ ipfs cat QmYx4BnhnLXeMWF5mKu16fJgUBiVP7ECXh7qcsUZnXiRxc
+微信：liyc1215
+区块链技术交流群：348924182
+公众号：区块链部落
+localhost:1121 yuechunli$ ipfs cat /ipfs/QmYx4BnhnLXeMWF5mKu16fJgUBiVP7ECXh7qcsUZnXiRxc
+微信：liyc1215
+区块链技术交流群：348924182
+公众号：区块链部落
+localhost:1121 yuechunli$ ipfs cat /ipfs/QmSsjQDVw1fvmG5RsZMgp2GjihiXn2zDv64mfHZN3AREek/contactme.txt
+微信：liyc1215
+区块链技术交流群：348924182
+公众号：区块链部落
+localhost:1121 yuechunli$
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;3-3-通过hash查看数据ipfs网络数据&#34;&gt;3.3 通过Hash查看数据IPFS网络数据&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;访问目录：&lt;/strong&gt;&lt;a href=&#34;https://ipfs.io/ipfs/QmSsjQDVw1fvmG5RsZMgp2GjihiXn2zDv64mfHZN3AREek&#34;&gt;https://ipfs.io/ipfs/QmSsjQDVw1fvmG5RsZMgp2GjihiXn2zDv64mfHZN3AREek&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://om1c35wrq.bkt.clouddn.com/WX20171121-110959@2x.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;通过目录访问文件：&lt;/strong&gt;&lt;a href=&#34;https://ipfs.io/ipfs/QmSsjQDVw1fvmG5RsZMgp2GjihiXn2zDv64mfHZN3AREek/contactme.txt&#34;&gt;https://ipfs.io/ipfs/QmSsjQDVw1fvmG5RsZMgp2GjihiXn2zDv64mfHZN3AREek/contactme.txt&lt;/a&gt;
+&lt;img src=&#34;http://om1c35wrq.bkt.clouddn.com/WX20171121-111019@2x.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;strong&gt;通过文件hash直接访问：&lt;/strong&gt;&lt;a href=&#34;https://ipfs.io/ipfs/QmYx4BnhnLXeMWF5mKu16fJgUBiVP7ECXh7qcsUZnXiRxc&#34;&gt;https://ipfs.io/ipfs/QmYx4BnhnLXeMWF5mKu16fJgUBiVP7ECXh7qcsUZnXiRxc&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://om1c35wrq.bkt.clouddn.com/WX20171121-113047@2x.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;4-创建简易的网页发布到ipfs&#34;&gt;4. 创建简易的网页发布到IPFS&lt;/h2&gt;
+
+&lt;p&gt;在这里我先自己写一个简单的网页给大家演示，先在桌面新建一个&lt;code&gt;site&lt;/code&gt;文件夹，然后按照下面的步骤在&lt;code&gt;site&lt;/code&gt;文件夹中建立&lt;code&gt;index.html&lt;/code&gt;和&lt;code&gt;style.css&lt;/code&gt;文件。&lt;/p&gt;
+
+&lt;h3 id=&#34;4-1-创建一个index-html文件&#34;&gt;4.1 创建一个index.html文件&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html lang=&amp;quot;en&amp;quot;&amp;gt;
+&amp;lt;head&amp;gt;
+  &amp;lt;meta charset=&amp;quot;UTF-8&amp;quot;&amp;gt;
+  &amp;lt;title&amp;gt;Hello IPFS!&amp;lt;/title&amp;gt;
+  &amp;lt;link rel=&amp;quot;stylesheet&amp;quot; href=&amp;quot;./style.css&amp;quot; /&amp;gt;
+&amp;lt;/head&amp;gt;
+&amp;lt;body&amp;gt;
+  &amp;lt;h1&amp;gt;Hello IPFS!&amp;lt;/h1&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;4-2-创建一个style-css文件&#34;&gt;4.2 创建一个style.css文件&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;h1 {
+  color: green;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;4-3-添加到ipfs&#34;&gt;4.3 添加到ipfs&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;localhost:Desktop yuechunli$ ipfs add -r site/
+added QmWG5rbgT9H77TGq49RXNoqN8M7DNKMnMX425nkmCB6BjS site/index.html
+added QmfGLJ3mryLvicQqzdsghq4QRhptKJtBAPe7yDJxsBGSuy site/style.css
+added QmdVEGkT5u7LtzzatTrn8JGNEF3fpuMPVs2rPCfvqRykRp site
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;最后一行是项目根目录的&lt;code&gt;hash&lt;/code&gt;，你先通过&lt;code&gt;ipfs daemon&lt;/code&gt;同步网络，然后可以通过&lt;code&gt;https://ipfs.io/ipfs/&amp;lt;你的项目根目录hash&amp;gt;&lt;/code&gt;，即&lt;code&gt;https://ipfs.io/ipfs/QmdVEGkT5u7LtzzatTrn8JGNEF3fpuMPVs2rPCfvqRykRp&lt;/code&gt;访问项目。&lt;/p&gt;
+
+&lt;h3 id=&#34;4-4-网络同步&#34;&gt;4.4 网络同步&lt;/h3&gt;
+
+&lt;pre&gt;&lt;code&gt;localhost:Desktop yuechunli$ ipfs daemon
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;4-5-访问网站&#34;&gt;4.5 访问网站&lt;/h3&gt;
+
+&lt;p&gt;浏览器打开&lt;a href=&#34;https://ipfs.io/ipfs/QmdVEGkT5u7LtzzatTrn8JGNEF3fpuMPVs2rPCfvqRykRp&#34;&gt;https://ipfs.io/ipfs/QmdVEGkT5u7LtzzatTrn8JGNEF3fpuMPVs2rPCfvqRykRp&lt;/a&gt;，效果图如下：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://om1c35wrq.bkt.clouddn.com/WX20171121-210721@2x.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;4-6-发布到ipns&#34;&gt;4.6 发布到IPNS&lt;/h3&gt;
+
+&lt;p&gt;当我们修改网站内容重新添加到&lt;code&gt;ipfs&lt;/code&gt;时，&lt;code&gt;hash&lt;/code&gt;会发生变化，当我们网站更新时，我们可以将网站发布到IPNS，在IPNS中，允许我们节点的域名空间中引用一个&lt;code&gt;IPFS hash&lt;/code&gt;，也就是说我们可以通过节点&lt;code&gt;ID&lt;/code&gt;对项目根目录的&lt;code&gt;IPFS HASH&lt;/code&gt;进行绑定，以后我们访问网站时直接通过节点·ID&lt;code&gt;访问即可，当我们更新博客时，重新发布到&lt;/code&gt;IPNS`即可。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;localhost:~ yuechunli$ ipfs name publish QmdVEGkT5u7LtzzatTrn8JGNEF3fpuMPVs2rPCfvqRykRp
+Published to QmdKXkeEWcuRw9oqBwopKUa8CgK1iBktPGYaMoJ4UNt1MP: /ipfs/QmdVEGkT5u7LtzzatTrn8JGNEF3fpuMPVs2rPCfvqRykRp
+localhost:~ yuechunli$ ipfs id
+{
+	&amp;quot;ID&amp;quot;: &amp;quot;QmdKXkeEWcuRw9oqBwopKUa8CgK1iBktPGYaMoJ4UNt1MP&amp;quot;
+}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;当我们执行&lt;code&gt;ipfs name publish&lt;/code&gt;命令时，会返回我们的节点&lt;code&gt;ID&lt;/code&gt;，你可以通过&lt;code&gt;ipfs id&lt;/code&gt;进行查看验证是否是你的节点&lt;code&gt;ID&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⚠️：验证&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ ipfs name resolve &amp;lt;peerId&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code&gt;localhost:~ yuechunli$ ipfs name resolve QmdKXkeEWcuRw9oqBwopKUa8CgK1iBktPGYaMoJ4UNt1MP
+/ipfs/QmdVEGkT5u7LtzzatTrn8JGNEF3fpuMPVs2rPCfvqRykRp
+localhost:~ yuechunli$
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;⚠️：&lt;/strong&gt;当然我们现在就可以通过&lt;code&gt;IPNS&lt;/code&gt;进行访问了。&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;https://ipfs.io/ipns/QmdKXkeEWcuRw9oqBwopKUa8CgK1iBktPGYaMoJ4UNt1MP
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;⚠️⚠️⚠️：注意上面是ipns而不是ipfs。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://om1c35wrq.bkt.clouddn.com/WX20171121-212123@2x.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;⚠️：如果你网站数据修改，需要重新发布到IPNS。&lt;/strong&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;5-发布个人博客&#34;&gt;5. 发布个人博客&lt;/h2&gt;
+
+&lt;p&gt;你可以通过&lt;code&gt;Hugo&lt;/code&gt;按照官方文档创建一个漂亮的静态博客&lt;a href=&#34;http://gohugo.io/getting-started/quick-start/&#34;&gt;Hugo官方网站&lt;/a&gt;，当然你也可以自己编写，或者使用其他开源项目搭建。&lt;/p&gt;
+
+&lt;h3 id=&#34;5-1-搭建静态博客&#34;&gt;5.1 搭建静态博客&lt;/h3&gt;
+
+&lt;p&gt;大家可以自己搭建，也可以直接下载我的博客源码直接搭建。&lt;/p&gt;
+
+&lt;p&gt;源码地址：&lt;a href=&#34;http://github.com/liyuechun/ipfs_blogger&#34;&gt;http://github.com/liyuechun/ipfs_blogger&lt;/a&gt;&lt;/p&gt;
+
+&lt;h3 id=&#34;5-2-节点id替换&#34;&gt;5.2 节点ID替换&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;查看你的节点ID&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;pre&gt;&lt;code&gt;localhost:ipfs_pin yuechunli$ ipfs id
+{
+	&amp;quot;ID&amp;quot;: &amp;quot;《your peer id》&amp;quot;
+}
+localhost:ipfs_pin yuechunli$
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;在上面的源码中全局搜索将源码里面的&lt;code&gt;QmdKXkeEWcuRw9oqBwopKUa8CgK1iBktPGYaMoJ4UNt1MP&lt;/code&gt;替换成你自己的&lt;code&gt;ID&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;接下来重复&lt;a href=&#34;#4-创建简易的网页发布到IPFS&#34;&gt;4. 创建简易的网页发布到IPFS&lt;/a&gt;的操作步骤即可。&lt;/p&gt;
+
+&lt;h3 id=&#34;5-3-浏览博客&#34;&gt;5.3 浏览博客&lt;/h3&gt;
+
+&lt;p&gt;浏览器打开&lt;a href=&#34;https://ipfs.io/ipns/QmdKXkeEWcuRw9oqBwopKUa8CgK1iBktPGYaMoJ4UNt1MP/&#34;&gt;https://ipfs.io/ipns/QmdKXkeEWcuRw9oqBwopKUa8CgK1iBktPGYaMoJ4UNt1MP/&lt;/a&gt;查看项目效果。&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://om1c35wrq.bkt.clouddn.com/WX20171121-215636@2x.png&#34; alt=&#34;IPFS 博客项目效果图&#34; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&#34;6-下篇预报&#34;&gt;6. 下篇预报&lt;/h2&gt;
+
+&lt;h3 id=&#34;6-1-ipfs-ethereum-dapp-开发入门&#34;&gt;6.1 &lt;code&gt;ipfs + ethereum&lt;/code&gt;&lt;code&gt;Dapp&lt;/code&gt;开发入门&lt;/h3&gt;
+
+&lt;h2 id=&#34;7-技术交流&#34;&gt;7. 技术交流&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;区块链技术交流QQ群：&lt;code&gt;348924182&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;进微信群请加微信：&lt;code&gt;liyc1215&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;「区块链部落」官方公众号&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&#34;http://om1c35wrq.bkt.clouddn.com/%E5%8C%BA%E5%9D%97%E9%93%BE%E9%83%A8%E8%90%BD.png&#34; alt=&#34;&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    
+  </channel>
+</rss>

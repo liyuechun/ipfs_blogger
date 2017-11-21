@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>https://ipfs.io/ipns/QmdKXkeEWcuRw9oqBwopKUa8CgK1iBktPGYaMoJ4UNt1MP/2017/10/ipfs_first_post/</loc>
+    <lastmod>2017-10-30T20:01:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://ipfs.io/ipns/QmdKXkeEWcuRw9oqBwopKUa8CgK1iBktPGYaMoJ4UNt1MP/blog/</loc>
+    <lastmod>2017-10-30T20:01:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://ipfs.io/ipns/QmdKXkeEWcuRw9oqBwopKUa8CgK1iBktPGYaMoJ4UNt1MP/</loc>
+    <lastmod>2017-10-30T20:01:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+</urlset>
